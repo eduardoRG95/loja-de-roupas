@@ -54,20 +54,25 @@ export default function LojaDeRoupas() {
         });
     }
 
-    function ordenarMenorValor() {
+    function ordenar2019() {
         let vendas2019 =  []
         listVendas.forEach(venda => {
             if(new Date(venda.data) > new Date('01-01-2019')){
                 vendas2019.push(venda)
             }
         });
-        console.log(vendas2019)
-       
-   
-       
+        console.log(vendas2019)            
     }
 
-
+    function ordenar2018() {
+        let vendas2018 =  []
+        listVendas.forEach(venda => {
+            if(new Date(venda.data) < new Date('01-01-2019') && new Date(venda.data) > new Date('01-01-2018')){
+                vendas2018.push(venda)
+            }
+        });
+        console.log(vendas2018)            
+    }
 
     return (
         <div>{
@@ -80,7 +85,13 @@ export default function LojaDeRoupas() {
             <br></br>
             <br></br>
             {listClientes.length && listVendas.length > 0 &&
-                (<button onClick={ordenarMenorValor}> Cliente maior compra unica</button>)
+                (<button onClick={ordenar2019}> 2019 </button>)
+            }
+            <br></br>
+            <br></br>
+            <br></br>
+            {listClientes.length && listVendas.length > 0 &&
+                (<button onClick={ordenar2018}> 2018 </button>)
             }
         </div>
     )
