@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import apiClientes from '../services/api-clientes';
 import apiVendas from '../services/api-vendas';
+import menorValor from '../services/serviceOrdenarValor';
+import maiorCompra2019 from '../services/serviceOrdenar2019';
+import maisCompraram2018 from '../services/serviceOrdenar2018';
 
 export default function LojaDeRoupas() {
 
@@ -37,41 +40,16 @@ export default function LojaDeRoupas() {
     }, []);
 
     function ordenarMenorValor() {
-        let clientesCompraramMenos = []
-        listVendas.sort(function (a, b) {
-            if (a.valorTotal > b.valorTotal) {
-                return 1;
-            }
-            if (a.valorTotal < b.valorTotal) {
-                return -1;
-            }
-            return 0;
-        });
-
-        listVendas.forEach(venda => {
-            var cliente = listClientes.find(cliente => cliente.cpf == venda.cliente);
-            clientesCompraramMenos.push(cliente)
-        });
+        var teste = menorValor(listVendas, listClientes);
+        
     }
-
+    
     function ordenar2019() {
-        let vendas2019 =  []
-        listVendas.forEach(venda => {
-            if(new Date(venda.data) > new Date('01-01-2019')){
-                vendas2019.push(venda)
-            }
-        });
-        console.log(vendas2019)            
+        var teste = maiorCompra2019(listVendas, listClientes);
     }
-
+    
     function ordenar2018() {
-        let vendas2018 =  []
-        listVendas.forEach(venda => {
-            if(new Date(venda.data) < new Date('01-01-2019') && new Date(venda.data) > new Date('01-01-2018')){
-                vendas2018.push(venda)
-            }
-        });
-        console.log(vendas2018)            
+        var teste = maisCompraram2018(listVendas, listClientes);        
     }
 
     return (
@@ -79,7 +57,7 @@ export default function LojaDeRoupas() {
 
         }
             {listClientes.length && listVendas.length > 0 &&
-                (<button onClick={ordenarMenorValor}> Ordenar Maior Compra</button>)
+                (<button onClick={ordenarMenorValor}> Ordenar Menor Compra </button>)
             }
             <br></br>
             <br></br>
